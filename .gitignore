@@ -1,0 +1,26 @@
+# Build results
+bin/
+obj/
+
+# Visual Studio user-specific files
+*.user
+*.rsuser
+*.suo
+
+# Visual Studio Code settings
+.vscode/
+
+# Compiled DLLs and PDBs
+*.dll
+*.pdb
+
+# Logs
+*.log
+logs/
+
+# OS-generated files
+.DS_Store
+
+# Environment variables
+.env
+.env.*

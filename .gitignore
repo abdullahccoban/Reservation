@@ -3,6 +3,13 @@ Build results
 bin/
 obj/
 
+Exclude all compiled artifacts that might leak outside of bin/ and obj/
+
+*.dll
+*.pdb
+*.exe
+*.o
+
 Visual Studio user-specific files
 
 *.user

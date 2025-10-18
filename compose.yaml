@@ -1,0 +1,12 @@
+﻿version: '3.9'
+
+services:
+  reservation:
+    image: reservation
+    build:
+      context: .
+      dockerfile: Reservation/Dockerfile
+    container_name: reservation-service
+    ports:
+      - "5162:8080"
+

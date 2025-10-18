@@ -17,6 +17,7 @@
 /Users/abdullahcoban/RiderProjects/Reservation/Reservation/obj/Debug/net8.0/Reservation.csproj.CoreCompileInputs.cache
 /Users/abdullahcoban/RiderProjects/Reservation/Reservation/obj/Debug/net8.0/Reservation.MvcApplicationPartsAssemblyInfo.cs
 /Users/abdullahcoban/RiderProjects/Reservation/Reservation/obj/Debug/net8.0/Reservation.MvcApplicationPartsAssemblyInfo.cache
+/Users/abdullahcoban/RiderProjects/Reservation/Reservation/obj/Debug/net8.0/Reservation.sourcelink.json
 /Users/abdullahcoban/RiderProjects/Reservation/Reservation/obj/Debug/net8.0/staticwebassets.build.json
 /Users/abdullahcoban/RiderProjects/Reservation/Reservation/obj/Debug/net8.0/staticwebassets.development.json
 /Users/abdullahcoban/RiderProjects/Reservation/Reservation/obj/Debug/net8.0/staticwebassets/msbuild.Reservation.Microsoft.AspNetCore.StaticWebAssets.props

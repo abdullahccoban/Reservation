@@ -1,26 +1,36 @@
-# Build results
+Build results
+
 bin/
 obj/
 
-# Visual Studio user-specific files
+Visual Studio user-specific files
+
 *.user
 *.rsuser
 *.suo
 
-# Visual Studio Code settings
+Visual Studio Code settings
+
 .vscode/
 
-# Compiled DLLs and PDBs
-*.dll
-*.pdb
+Rider/IntelliJ IDE files
 
-# Logs
+.idea/
+
+Logs
+
 *.log
 logs/
 
-# OS-generated files
+OS-generated files
+
 .DS_Store
 
-# Environment variables
+Environment variables
+
 .env
 .env.*
+
+Development Configuration
+
+appsettings.Development.json

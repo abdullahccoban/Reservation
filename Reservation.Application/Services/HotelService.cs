@@ -68,4 +68,26 @@ public class HotelService : IHotelService
         
         await _uow.SaveChangesAsync();
     }
+
+    public async Task RemoveHotelAsync(int id)
+    {
+        var existingHotel = await _uow.GetRepository<Hotel>().GetByIdAsync(id);
+        if (existingHotel == null) throw new KeyNotFoundException();
+        _uow.GetRepository<Hotel>().Delete(existingHotel);
+        await _uow.SaveChangesAsync();
+    }
+
+    public async Task<List<HotelDto>> GetHotelsAsync()
+    {
+        var hotels = await _uow.GetRepository<Hotel>().GetAllAsync();
+        return _mapper.Map<List<HotelDto>>(hotels);
+    }
+
+    public async Task<HotelDto> GetHotelByIdAsync(int id)
+    {
+        var existingHotel = await _uow.GetRepository<Hotel>().GetByIdAsync(id);
+        if (existingHotel == null) throw new KeyNotFoundException();
+        
+        return _mapper.Map<HotelDto>(existingHotel);
+    }
 }

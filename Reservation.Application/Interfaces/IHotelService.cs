@@ -8,4 +8,7 @@ public interface IHotelService
     Task<List<HotelCardDto>> GetHotelCards();
     Task CreateHotelAsync(CreateHotelRequestDto request);
     Task UpdateHotelAsync(UpdateHotelRequestDto request);
+    Task RemoveHotelAsync(int id);
+    Task<List<HotelDto>> GetHotelsAsync();
+    Task<HotelDto> GetHotelByIdAsync(int id);
 }

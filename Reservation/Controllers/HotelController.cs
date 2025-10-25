@@ -15,6 +15,13 @@ public class HotelController : ControllerBase
         _hotelService = hotelService;
     }
 
+    [HttpGet("getHotelsCard")]
+    public async Task<IActionResult> GetHotelsCard()
+    {
+        var cards = await _hotelService.GetHotelCards();
+        return Ok(cards);
+    }
+
     [HttpPost("create")]
     public async Task<IActionResult> Create([FromBody] CreateHotelRequestDto request)
     {

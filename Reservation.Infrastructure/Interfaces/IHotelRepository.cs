@@ -5,5 +5,6 @@ namespace Reservation.Infrastructure.Interfaces;
 
 public interface IHotelRepository : IRepository<Hotel>
 {
-    
+    IQueryable<Hotel> GetBaseQuery();
+
 }

@@ -12,9 +12,11 @@ public static class DependencyInjection
         services.AddAutoMapper(typeof(HotelMapping));
         services.AddAutoMapper(typeof(HotelInformationMapping));
         services.AddAutoMapper(typeof(PhotoMapping));
+        services.AddAutoMapper(typeof(RoomMapping));
         services.AddScoped<IHotelService, HotelService>();
         services.AddScoped<IHotelInformationService, HotelInformationService>();
         services.AddScoped<IPhotoService, PhotoService>();
+        services.AddScoped<IRoomService, RoomService>();
         
         return services;
     } 

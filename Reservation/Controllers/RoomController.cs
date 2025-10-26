@@ -1,26 +1,26 @@
 using Microsoft.AspNetCore.Mvc;
-using Reservation.Application.DTOs.Requests.Photo;
+using Reservation.Application.DTOs.Requests.Room;
 using Reservation.Application.Interfaces;
 
 namespace Reservation.Controllers;
 
 [ApiController]
-[Route("api/v1/photo")]
-public class PhotoController : ControllerBase
+[Route("api/v1/room")]
+public class RoomController : ControllerBase
 {
-    private readonly IPhotoService _photoService;
+    private readonly IRoomService _roomService;
 
-    public PhotoController(IPhotoService photoService)
+    public RoomController(IRoomService roomService)
     {
-        _photoService = photoService;
+        _roomService = roomService;
     }
     
     [HttpPost("create")]
-    public async Task<IActionResult> Create([FromBody] CreatePhotoRequestDto request)
+    public async Task<IActionResult> Create([FromBody] CreateRoomRequestDto request)
     {
         try
         {
-            await _photoService.CreatePhotoAsync(request);
+            await _roomService.CreateRoomAsync(request);
             return Ok();
         }
         catch (Exception ex)
@@ -30,11 +30,11 @@ public class PhotoController : ControllerBase
     }
     
     [HttpPost("update")]
-    public async Task<IActionResult> Update([FromBody] UpdatePhotoRequestDto request)
+    public async Task<IActionResult> Update([FromBody] UpdateRoomRequestDto request)
     {
         try
         {
-            await _photoService.UpdatePhotoAsync(request);
+            await _roomService.UpdateRoomAsync(request);
             return Ok();
         }
         catch (Exception ex)
@@ -48,7 +48,7 @@ public class PhotoController : ControllerBase
     {
         try
         {
-            await _photoService.RemovePhotoAsync(id);
+            await _roomService.RemoveRoomAsync(id);
             return Ok();
         }
         catch (Exception ex)
@@ -62,8 +62,8 @@ public class PhotoController : ControllerBase
     {
         try
         {
-            var photos = await _photoService.GetAllPhotosAsync();
-            return Ok(photos);
+            var rooms = await _roomService.GetAllRoomsAsync();
+            return Ok(rooms);
         }
         catch (Exception ex)
         {
@@ -76,8 +76,8 @@ public class PhotoController : ControllerBase
     {
         try
         {
-            var photo = await _photoService.GetPhotoById(id);
-            return Ok(photo);
+            var room = await _roomService.GetRoomById(id);
+            return Ok(room);
         }
         catch (Exception ex)
         {
@@ -90,13 +90,12 @@ public class PhotoController : ControllerBase
     {
         try
         {
-            var photos = await _photoService.GetHotelPhotosAsync(hotelId);
-            return Ok(photos);
+            var rooms = await _roomService.GetHotelRoomsAsync(hotelId);
+            return Ok(rooms);
         }
         catch (Exception ex)
         {
             return BadRequest(new { message = ex.Message });
         }
     }
-    
 }

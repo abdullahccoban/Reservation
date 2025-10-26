@@ -24,6 +24,11 @@ public static class DependencyInjection
         services.AddScoped<IHotelInformationRepository, HotelInformationRepository>();
         services.AddScoped<IPhotoRepository, PhotoRepository>();
         services.AddScoped<IRoomRepository, RoomRepository>();
+        services.AddScoped<IRoomPriceRepository, RoomPriceRepository>();
+        services.AddScoped<IRoomFeatureRepository, RoomFeatureRepository>();
+        services.AddScoped<IPromotionRepository, PromotionRepository>();
+        services.AddScoped<IWorkingRangeRepository, WorkingRangeRepository>();
+        services.AddScoped<ITagRepository, TagRepository>();
         
         return services;
     } 

@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using GenericInfra.Core;
 
 namespace Reservation.Infrastructure.Context;
 
-public partial class WorkingRange
+public partial class WorkingRange : IEntity
 {
     public int Id { get; set; }
 

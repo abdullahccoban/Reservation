@@ -14,7 +14,6 @@ public class HotelRepository : GenericRepository<Hotel, ReservationDbContext>, I
     }
 
     public IQueryable<Hotel> GetBaseQuery()
-    {
-        return _context.Hotels.AsNoTracking();
-    }
+        => _context.Hotels.AsNoTracking();
+    
 }

@@ -10,7 +10,9 @@ public static class DependencyInjection
     public static IServiceCollection AddApplicationServices(this IServiceCollection services)
     {
         services.AddAutoMapper(typeof(HotelMapping));
+        services.AddAutoMapper(typeof(HotelInformationMapping));
         services.AddScoped<IHotelService, HotelService>();
+        services.AddScoped<IHotelInformationService, HotelInformationService>();
         
         return services;
     } 

@@ -6,6 +6,8 @@ public class TagDomain
     public int HotelId  { get; private set; }
     public string Tag { get; private set; }
 
+    protected TagDomain() { }
+    
     public TagDomain(int hotelId, string tag, int id = 0)
     {
         if (string.IsNullOrEmpty(tag)) throw new ArgumentNullException();

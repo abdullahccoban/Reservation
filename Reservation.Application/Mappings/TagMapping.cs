@@ -9,7 +9,12 @@ public class TagMapping : Profile
 {
     public TagMapping()
     {
-        CreateMap<TagDomain, Tag>().ReverseMap();
-        CreateMap<Tag, TagDto>();
+        CreateMap<TagDomain, Tag>()
+            .ForMember(dest => dest.Tag1, opt => opt.MapFrom(src => src.Tag))
+            .ReverseMap()
+            .ForMember(dest => dest.Tag, opt => opt.MapFrom(src => src.Tag1));
+        
+        CreateMap<Tag, TagDto>()
+            .ForMember(dest => dest.Tag, opt => opt.MapFrom(src => src.Tag1));
     }
 }

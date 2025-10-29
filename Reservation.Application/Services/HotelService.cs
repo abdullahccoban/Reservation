@@ -22,6 +22,23 @@ public class HotelService : IHotelService
         _mapper = mapper;
         _repo = repo;
     }
+    
+    public async Task<List<HotelDto>> GetHotelsForAdmins(string email)
+    {
+        var hotels = await _repo.GetBaseQuery()
+            .Where(h => h.HotelAdmins.Any(ha => ha.UserEmail == email))
+            .Select(h => new HotelDto
+            {
+                Id = h.Id,
+                Name = h.Name,
+                Description = h.Description,
+                DailyCapacity = h.DailyCapacity
+            })
+            .ToListAsync();
+
+        return hotels;
+    }
+
 
     public async Task<List<HotelCardDto>> GetHotelCards()
     {
@@ -36,8 +53,8 @@ public class HotelService : IHotelService
                 Description = hotel.Description,
                 AverageScore = hotel.Comments.Any() ? hotel.Comments.Average(c => c.Point) : 0,
                 CommentCount = hotel.Comments.Count(),
-                MinPrice = hotel.Rooms.SelectMany(room => room.RoomPrices).Where(price => price.StartDate <= currentDate && price.EndDate >= currentDate).Min(price => (decimal)price.Price),
-                FirstPhotoPath = hotel.Photos.OrderBy(p => p.CreatedAt).Select(p => p.PhotoPath).FirstOrDefault()
+                MinPrice = hotel.Rooms.Any() ? hotel.Rooms.SelectMany(room => room.RoomPrices).Where(price => price.StartDate <= currentDate && price.EndDate >= currentDate).Min(price => (decimal)price.Price) : 0,
+                FirstPhotoPath = hotel.Photos.Any() ? hotel.Photos.OrderBy(p => p.CreatedAt).Select(p => p.PhotoPath).FirstOrDefault() : null
             })
             .OrderBy(hotel => hotel.Id)
             .Take(10)

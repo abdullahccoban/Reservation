@@ -29,6 +29,7 @@ public static class DependencyInjection
         services.AddScoped<IPromotionRepository, PromotionRepository>();
         services.AddScoped<IWorkingRangeRepository, WorkingRangeRepository>();
         services.AddScoped<ITagRepository, TagRepository>();
+        services.AddScoped<IHotelAdminRepository, HotelAdminRepository>();
         
         return services;
     } 

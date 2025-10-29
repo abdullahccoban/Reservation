@@ -21,6 +21,8 @@ public partial class ReservationDbContext : DbContext
 
     public virtual DbSet<Hotel> Hotels { get; set; }
 
+    public virtual DbSet<HotelAdmin> HotelAdmins { get; set; }
+
     public virtual DbSet<HotelInformation> HotelInformations { get; set; }
 
     public virtual DbSet<Photo> Photos { get; set; }
@@ -80,13 +82,25 @@ public partial class ReservationDbContext : DbContext
             entity.Property(e => e.Name).HasMaxLength(255);
         });
 
+        modelBuilder.Entity<HotelAdmin>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("HotelAdmins_pkey");
+
+            entity.ToTable("HotelAdmins", "reservation");
+
+            entity.Property(e => e.UserEmail).HasMaxLength(100);
+
+            entity.HasOne(d => d.Hotel).WithMany(p => p.HotelAdmins)
+                .HasForeignKey(d => d.HotelId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("HotelAdmins_HotelId_fkey");
+        });
+
         modelBuilder.Entity<HotelInformation>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("HotelInformations_pkey");
 
             entity.ToTable("HotelInformations", "reservation");
-
-            entity.Property(e => e.Description).HasMaxLength(255);
 
             entity.HasOne(d => d.Hotel).WithMany(p => p.HotelInformations)
                 .HasForeignKey(d => d.HotelId)

@@ -18,6 +18,8 @@ public partial class Hotel : IEntity
 
     public virtual ICollection<Favorite> Favorites { get; set; } = new List<Favorite>();
 
+    public virtual ICollection<HotelAdmin> HotelAdmins { get; set; } = new List<HotelAdmin>();
+
     public virtual ICollection<HotelInformation> HotelInformations { get; set; } = new List<HotelInformation>();
 
     public virtual ICollection<Photo> Photos { get; set; } = new List<Photo>();

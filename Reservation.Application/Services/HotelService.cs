@@ -1,4 +1,5 @@
 using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using GenericInfra.Core;
 using Microsoft.EntityFrameworkCore;
 using Reservation.Application.DTOs.Requests.Hotel;
@@ -22,6 +23,14 @@ public class HotelService : IHotelService
         _uow = uow;
         _mapper = mapper;
         _repo = repo;
+    }
+
+    public async Task<HotelDetailDto?> GetHotelById(int id)
+    {
+        return await _repo.GetBaseQuery()
+            .Where(h => h.Id == id)
+            .ProjectTo<HotelDetailDto>(_mapper.ConfigurationProvider)
+            .FirstOrDefaultAsync();
     }
 
     public async Task<PagedResult<HotelDto>> SearchHotels(HotelSearchRequestDto request)

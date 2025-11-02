@@ -15,6 +15,13 @@ public class HotelController : ControllerBase
         _hotelService = hotelService;
     }
     
+    [HttpGet("getHotelById")]
+    public async Task<IActionResult> GetHotelById([FromQuery] int id)
+    {
+        var hotel = await _hotelService.GetHotelById(id);
+        return Ok(hotel);
+    }
+    
     [HttpGet("searchHotels")]
     public async Task<IActionResult> SearchHotels([FromQuery] HotelSearchRequestDto request)
     {

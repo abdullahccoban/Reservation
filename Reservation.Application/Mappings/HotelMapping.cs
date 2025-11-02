@@ -11,5 +11,11 @@ public class HotelMapping : Profile
     {
         CreateMap<HotelDomain, Hotel>().ReverseMap();
         CreateMap<Hotel, HotelDto>();
+        
+        CreateMap<Hotel, HotelDetailDto>()
+            .ForMember(dest => dest.AverageScore,
+                opt => opt.MapFrom(src => src.Comments.Average(c => (double?)c.Point) ?? 0))
+            .ForMember(dest => dest.CommentCount,
+                opt => opt.MapFrom(src => src.Comments.Count()));
     }
 }

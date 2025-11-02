@@ -6,6 +6,7 @@ namespace Reservation.Application.Interfaces;
 
 public interface IHotelService
 {
+    Task<HotelDetailDto?> GetHotelById(int id);
     Task<PagedResult<HotelDto>> SearchHotels(HotelSearchRequestDto request);
     Task<List<HotelDto>> GetHotelsForAdmins(string email);
     Task<List<HotelCardDto>> GetHotelCards();

@@ -1,0 +1,10 @@
+namespace Reservation.Application.DTOs.Requests.Comment;
+
+public class UpdateCommentRequestDto
+{
+    public int Id { get; set; }
+    public int HotelId { get; set; }
+    public int Point { get; set; }
+    public required string Comment { get; set; }
+    public DateTime CreatedAt { get; set; }
+}

@@ -1,5 +1,7 @@
+using Reservation.Application.DTOs.Responses.Comment;
 using Reservation.Application.DTOs.Responses.HotelInformation;
 using Reservation.Application.DTOs.Responses.Photo;
+using Reservation.Application.DTOs.Responses.Qa;
 using Reservation.Application.DTOs.Responses.Room;
 using Reservation.Application.DTOs.Responses.Tag;
 
@@ -12,9 +14,11 @@ public class HotelDetailDto
     public string? Description { get; set; }
     public int StarCount { get; set; }
     public List<PhotoDto>? Photos { get; set; }
-    public List<HotelInformationDto>? HotelInfos { get; set; }
+    public List<HotelInformationDto>? HotelInformations { get; set; }
     public List<TagDto>? Tags { get; set; }
     public List<RoomDto>? Rooms { get; set; }
+    public List<CommentDto>? Comments { get; set; }
+    public List<QaDto>? Qas { get; set; }
     public double AverageScore  { get; set; }
     public int CommentCount  { get; set; }
 }

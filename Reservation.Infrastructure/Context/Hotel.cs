@@ -13,6 +13,18 @@ public partial class Hotel : IEntity
     public string Description { get; set; } = null!;
 
     public int DailyCapacity { get; set; }
+    
+    
+    public string? Country { get; set; } = null!;
+    
+    
+    public string? City { get; set; } = null!;
+    
+    
+    public string? Phone { get; set; } = null!;
+    
+    
+    public int? StarCount { get; set; }
 
     public virtual ICollection<Comment> Comments { get; set; } = new List<Comment>();
 

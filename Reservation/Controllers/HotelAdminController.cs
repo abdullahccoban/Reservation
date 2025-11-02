@@ -85,6 +85,20 @@ public class HotelAdminController : ControllerBase
         }
     }
     
+    [HttpGet("getAllByHotelId")]
+    public async Task<IActionResult> GetAllByHotelId(int hotelId)
+    {
+        try
+        {
+            var hotelAdmins = await _hotelAdminService.GetHotelAdminsAsync(hotelId);
+            return Ok(hotelAdmins);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(new { message = ex.Message });
+        }
+    }
+    
     [HttpGet("getAdminHotels")]
     public async Task<IActionResult> GetAdminHotels(string userEmail)
     {

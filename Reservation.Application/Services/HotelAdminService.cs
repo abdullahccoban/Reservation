@@ -66,6 +66,12 @@ public class HotelAdminService : IHotelAdminService
         
         return _mapper.Map<HotelAdminDto>(existingHotelInfo);
     }
+    
+    public async Task<List<HotelAdminDto>> GetHotelAdminsAsync(int hotelId)
+    {
+        var hotelInfos = await _repo.GetHotelAdmins(hotelId);
+        return _mapper.Map<List<HotelAdminDto>>(hotelInfos);
+    }
 
     public async Task<List<HotelAdminDto>> GetHotelAdminsAsync(string userEmail)
     {

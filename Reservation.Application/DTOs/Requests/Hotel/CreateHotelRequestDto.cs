@@ -5,4 +5,8 @@ public class CreateHotelRequestDto
     public required string Name { get; set; }
     public required string Description { get; set; }
     public int DailyCapacity { get; set; }
+    public required string Country { get; set; }
+    public required string City { get; set; }
+    public required string Phone { get; set; }
+    public int StarCount { get; set; }
 }

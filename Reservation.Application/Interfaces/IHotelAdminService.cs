@@ -12,5 +12,6 @@ public interface IHotelAdminService
     Task RemoveHotelAdminAsync(int id);
     Task<List<HotelAdminDto>> GetAllHotelAdminsAsync();
     Task<HotelAdminDto> GetHotelAdminByIdAsync(int id);
+    Task<List<HotelAdminDto>> GetHotelAdminsAsync(int hotelId);
     Task<List<HotelAdminDto>> GetHotelAdminsAsync(string userEmail);
 }

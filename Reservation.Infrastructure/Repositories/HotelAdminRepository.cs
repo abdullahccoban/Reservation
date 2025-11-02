@@ -13,6 +13,9 @@ public class HotelAdminRepository : GenericRepository<HotelAdmin, ReservationDbC
         _context = context;
     }
     
+    public async Task<IEnumerable<HotelAdmin>> GetHotelAdmins(int hotelId) 
+        => await _context.HotelAdmins.Where(i => i.HotelId == hotelId).ToListAsync();
+    
     public async Task<IEnumerable<HotelAdmin>> GetAdminHotels(string userEmail)
         => await _context.HotelAdmins.Where(i => i.UserEmail == userEmail).ToListAsync();
 }

@@ -21,4 +21,5 @@ public class HotelDetailDto
     public List<QaDto>? Qas { get; set; }
     public double AverageScore  { get; set; }
     public int CommentCount  { get; set; }
+    public bool IsFavorite { get; set; }
 }

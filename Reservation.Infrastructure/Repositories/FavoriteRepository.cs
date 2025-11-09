@@ -16,4 +16,9 @@ public class FavoriteRepository : GenericRepository<Favorite, ReservationDbConte
 
     public async Task<IEnumerable<Favorite>> GetFavorites(string userId)
         => await _context.Favorites.Where(i => i.UserId == userId).Include(h => h.Hotel).ToListAsync();
+    
+    public async Task<bool> IsFavorite(int id, string userId)
+        => await _context.Favorites.AnyAsync(i => i.Id == id && i.UserId == userId);
+    
+    
 }

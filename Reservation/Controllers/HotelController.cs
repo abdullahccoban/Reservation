@@ -19,7 +19,9 @@ public class HotelController : ControllerBase
     [HttpGet("getHotelById")]
     public async Task<IActionResult> GetHotelById([FromQuery] int id)
     {
-        var hotel = await _hotelService.GetHotelById(id);
+        var userId = Request.Headers["userId"].FirstOrDefault();
+        
+        var hotel = await _hotelService.GetHotelById(id, userId);
         return Ok(hotel);
     }
     
@@ -40,7 +42,9 @@ public class HotelController : ControllerBase
     [HttpGet("getHotelsCard")]
     public async Task<IActionResult> GetHotelsCard()
     {
-        var cards = await _hotelService.GetHotelCards();
+        var userId = Request.Headers["userId"].FirstOrDefault();
+        
+        var cards = await _hotelService.GetHotelCards(userId);
         return Ok(cards);
     }
 

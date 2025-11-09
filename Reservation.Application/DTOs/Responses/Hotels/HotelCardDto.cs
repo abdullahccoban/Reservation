@@ -10,4 +10,5 @@ public class HotelCardDto
     public decimal MinPrice  { get; set; }
     public string? FirstPhotoPath  { get; set; }
     public int StarCount { get; set; }
+    public bool IsFavorite { get; set; } 
 }

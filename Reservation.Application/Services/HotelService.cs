@@ -21,17 +21,19 @@ public class HotelService : IHotelService
     private readonly IHotelRepository _repo;
     private readonly ICommentRepository _commentRepository;
     private readonly IQaRepository _qaRepository;
+    private readonly IFavoriteRepository _favoriteRepository;
 
-    public HotelService(IUnitOfWork uow, IMapper mapper, IHotelRepository repo, ICommentRepository commentRepository, IQaRepository qaRepository)
+    public HotelService(IUnitOfWork uow, IMapper mapper, IHotelRepository repo, ICommentRepository commentRepository, IQaRepository qaRepository, IFavoriteRepository favoriteRepository)
     {
         _uow = uow;
         _mapper = mapper;
         _repo = repo;
         _commentRepository = commentRepository;
         _qaRepository = qaRepository;
+        _favoriteRepository = favoriteRepository;
     }
 
-    public async Task<HotelDetailDto?> GetHotelById(int id)
+    public async Task<HotelDetailDto?> GetHotelById(int id, string? userId)
     {
         var hotel = await _repo.GetBaseQuery()
             .Where(h => h.Id == id)
@@ -61,6 +63,8 @@ public class HotelService : IHotelService
         dto.AverageScore = dto.CommentCount > 0
             ? await _commentRepository.GetAverageScore(id)
             : 0;
+
+        dto.IsFavorite = !string.IsNullOrEmpty(userId) ? await _favoriteRepository.IsFavorite(id, userId) : false;
 
         return dto;
     }
@@ -122,12 +126,19 @@ public class HotelService : IHotelService
 
         return hotels;
     }
-
-
-    public async Task<List<HotelCardDto>> GetHotelCards()
+    
+    public async Task<List<HotelCardDto>> GetHotelCards(string? userId)
     {
         var currentDate = DateTime.UtcNow.Date;
         var baseQuery = _repo.GetBaseQuery();
+        
+        var favoriteHotelIds = new List<int>();
+
+        if (!string.IsNullOrEmpty(userId))
+        {
+            var favorites = await _favoriteRepository.GetFavorites(userId);
+            favoriteHotelIds.AddRange(favorites.Select(i => i.HotelId).ToList());
+        }
 
         var hotelCards = await baseQuery
             .Select(hotel => new HotelCardDto
@@ -139,7 +150,8 @@ public class HotelService : IHotelService
                 CommentCount = hotel.Comments.Count(),
                 MinPrice = hotel.Rooms.Any() ? hotel.Rooms.SelectMany(room => room.RoomPrices).Where(price => price.StartDate <= currentDate && price.EndDate >= currentDate).Min(price => (decimal)price.Price) : 0,
                 FirstPhotoPath = hotel.Photos.Any() ? hotel.Photos.OrderBy(p => p.CreatedAt).Select(p => p.PhotoPath).FirstOrDefault() : null,
-                StarCount = hotel.StarCount ?? 5
+                StarCount = hotel.StarCount ?? 5,
+                IsFavorite = favoriteHotelIds.Contains(hotel.Id)
             })
             .OrderBy(hotel => hotel.Id)
             .Take(10)

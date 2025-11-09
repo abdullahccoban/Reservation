@@ -98,4 +98,18 @@ public class QaController : ControllerBase
             return BadRequest(new { message = ex.Message });
         }
     }
+    
+    [HttpGet("getAllAnsweredByHotelId")]
+    public async Task<IActionResult> GetAllAnsweredByHotelId(int hotelId)
+    {
+        try
+        {
+            var qas = await _qaService.GetHotelAnsweredQuestions(hotelId);
+            return Ok(qas);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(new { message = ex.Message });
+        }
+    }
 }

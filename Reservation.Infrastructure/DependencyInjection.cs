@@ -30,6 +30,9 @@ public static class DependencyInjection
         services.AddScoped<IWorkingRangeRepository, WorkingRangeRepository>();
         services.AddScoped<ITagRepository, TagRepository>();
         services.AddScoped<IHotelAdminRepository, HotelAdminRepository>();
+        services.AddScoped<ICommentRepository, CommentRepository>();
+        services.AddScoped<IQaRepository, QaRepository>();
+        services.AddScoped<ICommentRepository, CommentRepository>();
         
         return services;
     } 

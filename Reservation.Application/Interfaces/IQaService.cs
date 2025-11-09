@@ -11,4 +11,5 @@ public interface IQaService
     Task<List<QaDto>> GetAllQasAsync();
     Task<QaDto> GetQaById(int id);
     Task<List<QaDto>> GetHotelQasAsync(int hotelId);
+    Task<List<QaDto>> GetHotelAnsweredQuestions(int hotelId);
 }

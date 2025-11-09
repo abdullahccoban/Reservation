@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Reservation.Application.DTOs.Requests.Hotel;
 using Reservation.Application.Interfaces;

@@ -29,6 +29,8 @@ public static class DependencyInjection
         services.AddScoped<ITagService, TagService>();
         services.AddScoped<IWorkingRangeService, WorkingRangeService>();
         services.AddScoped<IHotelAdminService, HotelAdminService>();
+        services.AddScoped<IQaService, QaService>();
+        services.AddScoped<ICommentService, CommentService>();
         
         return services;
     } 

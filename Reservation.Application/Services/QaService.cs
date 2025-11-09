@@ -69,7 +69,13 @@ public class QaService : IQaService
 
     public async Task<List<QaDto>> GetHotelQasAsync(int hotelId)
     {
-        var rooms = await _repo.GetHotelQas(hotelId);
-        return _mapper.Map<List<QaDto>>(rooms);
+        var questions = await _repo.GetHotelQas(hotelId);
+        return _mapper.Map<List<QaDto>>(questions);
+    }
+
+    public async Task<List<QaDto>> GetHotelAnsweredQuestions(int hotelId)
+    {
+        var questions = await _repo.GetAnsweredQuestions(hotelId);
+        return _mapper.Map<List<QaDto>>(questions);
     }
 }

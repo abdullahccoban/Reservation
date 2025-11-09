@@ -4,7 +4,9 @@ using GenericInfra.Core;
 using Microsoft.EntityFrameworkCore;
 using Reservation.Application.DTOs.Requests.Hotel;
 using Reservation.Application.DTOs.Responses;
+using Reservation.Application.DTOs.Responses.Comment;
 using Reservation.Application.DTOs.Responses.Hotels;
+using Reservation.Application.DTOs.Responses.Qa;
 using Reservation.Application.Interfaces;
 using Reservation.Domain.Entities;
 using Reservation.Infrastructure.Context;
@@ -17,20 +19,50 @@ public class HotelService : IHotelService
     private readonly IUnitOfWork _uow;
     private readonly IMapper _mapper;
     private readonly IHotelRepository _repo;
+    private readonly ICommentRepository _commentRepository;
+    private readonly IQaRepository _qaRepository;
 
-    public HotelService(IUnitOfWork uow, IMapper mapper, IHotelRepository repo)
+    public HotelService(IUnitOfWork uow, IMapper mapper, IHotelRepository repo, ICommentRepository commentRepository, IQaRepository qaRepository)
     {
         _uow = uow;
         _mapper = mapper;
         _repo = repo;
+        _commentRepository = commentRepository;
+        _qaRepository = qaRepository;
     }
 
     public async Task<HotelDetailDto?> GetHotelById(int id)
     {
-        return await _repo.GetBaseQuery()
+        var hotel = await _repo.GetBaseQuery()
             .Where(h => h.Id == id)
-            .ProjectTo<HotelDetailDto>(_mapper.ConfigurationProvider)
+            .AsSplitQuery()
+            .Include(h => h.Photos)
+            .Include(h => h.HotelInformations)
+            .Include(h => h.Tags)
+            .Include(h => h.Rooms)
+            .ThenInclude(r => r.RoomFeatures)
+            .Include(h => h.Rooms)
+            .ThenInclude(r => r.RoomPrices)
             .FirstOrDefaultAsync();
+
+        if (hotel is null)
+            return null;
+        
+        var dto = _mapper.Map<HotelDetailDto>(hotel);
+        
+        var lastComments = await _commentRepository.TakeThreeComments(id);
+        dto.Comments = _mapper.Map<List<CommentDto>>(lastComments);
+
+        var lastQas = await _qaRepository.TakeThreeQas(id);
+        dto.Qas = _mapper.Map<List<QaDto>>(lastQas);
+
+        // ✅ Aggregates
+        dto.CommentCount = await _commentRepository.TakeCommentCount(id);
+        dto.AverageScore = dto.CommentCount > 0
+            ? await _commentRepository.GetAverageScore(id)
+            : 0;
+
+        return dto;
     }
 
     public async Task<PagedResult<HotelDto>> SearchHotels(HotelSearchRequestDto request)

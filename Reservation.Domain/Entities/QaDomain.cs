@@ -6,19 +6,19 @@ public class QaDomain
     public int HotelId  { get; private set; }
     public string Question { get; private set; }
     public DateTime QuestionDate { get; private set; }
-    public string Answer { get; private set; }
-    public DateTime AnswerDate { get; private set; }
+    public string? Answer { get; private set; }
+    public DateTime? AnswerDate { get; private set; }
 
-    public QaDomain(int hotelId, string question, DateTime questionDate, string answer, DateTime answerDate, int id = 0)
+    public QaDomain(int hotelId, string question, DateTime questionDate, string? answer, DateTime? answerDate, int id = 0)
     {
         if (string.IsNullOrEmpty(question)) throw new ArgumentNullException();
-        if (string.IsNullOrEmpty(answer)) throw new ArgumentNullException();
         if (hotelId <= 0) throw new ArgumentOutOfRangeException();
         HotelId = hotelId;
         Question = question;
         QuestionDate = questionDate;
         Answer = answer;
-        AnswerDate = answerDate;
+        if (answerDate.HasValue)
+            AnswerDate = answerDate;
         if (id != 0) Id = id;
     }
     

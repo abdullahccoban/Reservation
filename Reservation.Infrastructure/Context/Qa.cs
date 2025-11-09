@@ -14,9 +14,9 @@ public partial class Qa : IEntity
 
     public DateTime QuestionDate { get; set; }
 
-    public string Answer { get; set; } = null!;
+    public string? Answer { get; set; } = null!;
 
-    public DateTime AnswerDate { get; set; }
+    public DateTime? AnswerDate { get; set; }
 
     public virtual Hotel Hotel { get; set; } = null!;
 }

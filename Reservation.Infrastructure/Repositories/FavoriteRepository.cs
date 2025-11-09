@@ -18,7 +18,13 @@ public class FavoriteRepository : GenericRepository<Favorite, ReservationDbConte
         => await _context.Favorites.Where(i => i.UserId == userId).Include(h => h.Hotel).ToListAsync();
     
     public async Task<bool> IsFavorite(int id, string userId)
-        => await _context.Favorites.AnyAsync(i => i.Id == id && i.UserId == userId);
-    
-    
+        => await _context.Favorites.AnyAsync(i => i.HotelId == id && i.UserId == userId);
+
+    public async Task RemoveFavorite(int hotelId, string userId)
+    {
+        var favorite = _context.Favorites.FirstOrDefault(i => i.HotelId == hotelId && i.UserId == userId);
+        if (favorite == null) throw new KeyNotFoundException();
+        _context.Favorites.Remove(favorite);
+        await _context.SaveChangesAsync();
+    }
 }

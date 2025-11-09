@@ -29,12 +29,10 @@ public class FavoriteService : IFavoriteService
         await _uow.SaveChangesAsync();
     }
 
-    public async Task RemoveFavoriteAsync(int id)
+    public async Task RemoveFavoriteAsync(RemoveFavoriteRequestDto request)
     {
-        var existingFavorite = await _uow.GetRepository<Favorite>().GetByIdAsync(id);
-        if (existingFavorite == null) throw new KeyNotFoundException();
-        _uow.GetRepository<Favorite>().Delete(existingFavorite);
-        await _uow.SaveChangesAsync();
+        var domain = new FavoriteDomain(request.HotelId, request.UserId);
+        await _repo.RemoveFavorite(domain.HotelId, domain.UserId);
     }
 
     public async Task<List<FavoritesResponseDto>> GetFavoritesAsync(string userId)

@@ -30,11 +30,11 @@ public class FavoriteController : ControllerBase
     }
     
     [HttpPost("remove")]
-    public async Task<IActionResult> Remove(int id)
+    public async Task<IActionResult> Remove(RemoveFavoriteRequestDto request)
     {
         try
         {
-            await _favoriteService.RemoveFavoriteAsync(id);
+            await _favoriteService.RemoveFavoriteAsync(request);
             return Ok();
         }
         catch (Exception ex)

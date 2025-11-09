@@ -6,6 +6,6 @@ namespace Reservation.Application.Interfaces;
 public interface IFavoriteService
 {
     Task AddFavoriteAsync(AddFavoriteRequestDto request);
-    Task RemoveFavoriteAsync(int id);
+    Task RemoveFavoriteAsync(RemoveFavoriteRequestDto request);
     Task<List<FavoritesResponseDto>> GetFavoritesAsync(string userId);
 }

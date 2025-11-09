@@ -32,7 +32,7 @@ public static class DependencyInjection
         services.AddScoped<IHotelAdminRepository, HotelAdminRepository>();
         services.AddScoped<ICommentRepository, CommentRepository>();
         services.AddScoped<IQaRepository, QaRepository>();
-        services.AddScoped<ICommentRepository, CommentRepository>();
+        services.AddScoped<IFavoriteRepository, FavoriteRepository>();
         
         return services;
     } 

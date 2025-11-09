@@ -19,6 +19,7 @@ public static class DependencyInjection
         services.AddAutoMapper(typeof(TagMapping));
         services.AddAutoMapper(typeof(WorkingRangeMapping));
         services.AddAutoMapper(typeof(HotelAdminMapping));
+        services.AddAutoMapper(typeof(FavoriteMapping));
         services.AddScoped<IHotelService, HotelService>();
         services.AddScoped<IHotelInformationService, HotelInformationService>();
         services.AddScoped<IPhotoService, PhotoService>();
@@ -31,6 +32,7 @@ public static class DependencyInjection
         services.AddScoped<IHotelAdminService, HotelAdminService>();
         services.AddScoped<IQaService, QaService>();
         services.AddScoped<ICommentService, CommentService>();
+        services.AddScoped<IFavoriteService, FavoriteService>();
         
         return services;
     } 
